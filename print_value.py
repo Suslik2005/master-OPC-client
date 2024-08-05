@@ -15,20 +15,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
+from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
+    QHBoxLayout, QLabel, QPushButton, QSizePolicy,
     QVBoxLayout, QWidget)
 
 class Ui_Dialog3(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(538, 166)
+        Dialog.resize(414, 173)
         Dialog.setStyleSheet(u"background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(81, 0, 135, 255), stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, 165, 255));\n"
 "font-family: Noto Sans SC;\n"
 "")
-        self.verticalLayout_2 = QVBoxLayout(Dialog)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout = QVBoxLayout(Dialog)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.frame = QFrame(Dialog)
         self.frame.setObjectName(u"frame")
         self.frame.setStyleSheet(u"backgorund-color: rgba(255,255,255,30);\n"
@@ -36,8 +36,8 @@ class Ui_Dialog3(object):
 "border-radius: 7px;\n"
 "")
         self.frame.setFrameShape(QFrame.NoFrame)
-        self.verticalLayout = QVBoxLayout(self.frame)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout_2 = QVBoxLayout(self.frame)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.is_all_ok = QLabel(self.frame)
         self.is_all_ok.setObjectName(u"is_all_ok")
         self.is_all_ok.setStyleSheet(u"color: white;\n"
@@ -45,16 +45,17 @@ class Ui_Dialog3(object):
 "background-color: green;\n"
 "border: none;")
 
-        self.verticalLayout.addWidget(self.is_all_ok)
+        self.verticalLayout_2.addWidget(self.is_all_ok)
 
-        self.lineEdit_value_name = QLineEdit(self.frame)
-        self.lineEdit_value_name.setObjectName(u"lineEdit_value_name")
-        self.lineEdit_value_name.setStyleSheet(u"font-size: 12pt;\n"
-"color: white;\n"
+        self.comboBox_values = QComboBox(self.frame)
+        self.comboBox_values.setObjectName(u"comboBox_values")
+        self.comboBox_values.setStyleSheet(u"color: white;\n"
 "padding-left: 10px;\n"
+"font-size: 12pt;\n"
+"\n"
 "")
 
-        self.verticalLayout.addWidget(self.lineEdit_value_name)
+        self.verticalLayout_2.addWidget(self.comboBox_values)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -79,10 +80,10 @@ class Ui_Dialog3(object):
         self.horizontalLayout.addWidget(self.pushButton_valueprint)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
 
-        self.verticalLayout_2.addWidget(self.frame)
+        self.verticalLayout.addWidget(self.frame)
 
 
         self.retranslateUi(Dialog)
@@ -93,7 +94,6 @@ class Ui_Dialog3(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
         self.is_all_ok.setText(QCoreApplication.translate("Dialog", u"All is ok", None))
-        self.lineEdit_value_name.setPlaceholderText(QCoreApplication.translate("Dialog", u"value name", None))
         self.pushButton_valueprint.setText(QCoreApplication.translate("Dialog", u"\u0412\u044b\u0432\u0435\u0441\u0442\u0438", None))
     # retranslateUi
 

@@ -57,6 +57,10 @@ if __name__ == "__main__":
         print(c)
         print(b)
         print(str(c).split(':')[3].split(')')[0])
+        var = client.get_node("ns=1;s=DCONEXAMPLE.МВ110-8АС (I-7017).Вход2")
+
+        b = var.get_value()
+        c = var.get_data_value()
         #var.set_value(3.9)
         #var = client.get_node("ns=2;g=1be5ba38-d004-46bd-aa3a-b5b87940c698")
         #print(var)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
-    <height>166</height>
+    <width>414</width>
+    <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
 font-family: Noto Sans SC;
 </string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QFrame" name="frame">
      <property name="styleSheet">
@@ -30,7 +30,7 @@ border-radius: 7px;
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QLabel" name="is_all_ok">
         <property name="styleSheet">
@@ -45,15 +45,13 @@ border: none;</string>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_value_name">
+       <widget class="QComboBox" name="comboBox_values">
         <property name="styleSheet">
-         <string notr="true">font-size: 12pt;
-color: white;
+         <string notr="true">color: white;
 padding-left: 10px;
+font-size: 12pt;
+
 </string>
-        </property>
-        <property name="placeholderText">
-         <string>value name</string>
         </property>
        </widget>
       </item>

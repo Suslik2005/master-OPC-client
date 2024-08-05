@@ -16,14 +16,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QFrame,
-    QHBoxLayout, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QVBoxLayout, QWidget)
+    QHBoxLayout, QLineEdit, QPushButton, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(519, 355)
+        Dialog.resize(530, 301)
         Dialog.setStyleSheet(u"background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:0, stop:0 rgba(81, 0, 135, 255), stop:0.427447 rgba(41, 61, 132, 235), stop:1 rgba(155, 79, 165, 255));\n"
 "font-family: Noto Sans SC;\n"
 "")
@@ -38,15 +38,6 @@ class Ui_Dialog(object):
         self.frame.setFrameShape(QFrame.NoFrame)
         self.verticalLayout = QVBoxLayout(self.frame)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
-        self.label.setStyleSheet(u"color: white;\n"
-"font-size: 12pt;\n"
-"background-color: none;\n"
-"border: none;")
-
-        self.verticalLayout.addWidget(self.label)
-
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.comboBox_UZEL = QComboBox(self.frame)
@@ -83,6 +74,8 @@ class Ui_Dialog(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.comboBox_USTRO = QComboBox(self.frame)
         self.comboBox_USTRO.setObjectName(u"comboBox_USTRO")
         self.comboBox_USTRO.setStyleSheet(u"color: white;\n"
@@ -91,23 +84,7 @@ class Ui_Dialog(object):
 "\n"
 "")
 
-        self.verticalLayout.addWidget(self.comboBox_USTRO)
-
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.comboBox_formats = QComboBox(self.frame)
-        self.comboBox_formats.addItem("")
-        self.comboBox_formats.addItem("")
-        self.comboBox_formats.addItem("")
-        self.comboBox_formats.addItem("")
-        self.comboBox_formats.setObjectName(u"comboBox_formats")
-        self.comboBox_formats.setStyleSheet(u"color: white;\n"
-"padding-left: 10px;\n"
-"font-size: 12pt;\n"
-"\n"
-"")
-
-        self.horizontalLayout_3.addWidget(self.comboBox_formats)
+        self.horizontalLayout_3.addWidget(self.comboBox_USTRO)
 
         self.pushButton_format = QPushButton(self.frame)
         self.pushButton_format.setObjectName(u"pushButton_format")
@@ -132,15 +109,15 @@ class Ui_Dialog(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
-        self.comboBox_3 = QComboBox(self.frame)
-        self.comboBox_3.setObjectName(u"comboBox_3")
-        self.comboBox_3.setStyleSheet(u"color: white;\n"
+        self.comboBox_values = QComboBox(self.frame)
+        self.comboBox_values.setObjectName(u"comboBox_values")
+        self.comboBox_values.setStyleSheet(u"color: white;\n"
 "padding-left: 10px;\n"
 "font-size: 12pt;\n"
 "\n"
 "")
 
-        self.verticalLayout.addWidget(self.comboBox_3)
+        self.verticalLayout.addWidget(self.comboBox_values)
 
         self.lineEdit_value = QLineEdit(self.frame)
         self.lineEdit_value.setObjectName(u"lineEdit_value")
@@ -187,14 +164,8 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Dialog", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"new_value", None))
         self.comboBox_UZEL.setCurrentText("")
         self.pushButton_UZEL.setText(QCoreApplication.translate("Dialog", u"apply", None))
-        self.comboBox_formats.setItemText(0, QCoreApplication.translate("Dialog", u"int32", None))
-        self.comboBox_formats.setItemText(1, QCoreApplication.translate("Dialog", u"uint32", None))
-        self.comboBox_formats.setItemText(2, QCoreApplication.translate("Dialog", u"float32", None))
-        self.comboBox_formats.setItemText(3, QCoreApplication.translate("Dialog", u"double64", None))
-
         self.pushButton_format.setText(QCoreApplication.translate("Dialog", u"apply", None))
         self.lineEdit_value.setPlaceholderText(QCoreApplication.translate("Dialog", u"value", None))
         self.pushButton_valueadd.setText(QCoreApplication.translate("Dialog", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))

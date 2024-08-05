@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
-    <height>355</height>
+    <width>530</width>
+    <height>301</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,19 +31,6 @@ border-radius: 7px;
       <enum>QFrame::NoFrame</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="styleSheet">
-         <string notr="true">color: white;
-font-size: 12pt;
-background-color: none;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>new_value</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -90,20 +77,9 @@ background-color: rgba(255,255,255,70);
        </layout>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_USTRO">
-        <property name="styleSheet">
-         <string notr="true">color: white;
-padding-left: 10px;
-font-size: 12pt;
-
-</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QComboBox" name="comboBox_formats">
+         <widget class="QComboBox" name="comboBox_USTRO">
           <property name="styleSheet">
            <string notr="true">color: white;
 padding-left: 10px;
@@ -111,26 +87,6 @@ font-size: 12pt;
 
 </string>
           </property>
-          <item>
-           <property name="text">
-            <string>int32</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>uint32</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>float32</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>double64</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item>
@@ -160,7 +116,7 @@ background-color: rgba(255,255,255,70);
        </layout>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_3">
+       <widget class="QComboBox" name="comboBox_values">
         <property name="styleSheet">
          <string notr="true">color: white;
 padding-left: 10px;

@@ -26,6 +26,7 @@ class Slave(QMainWindow):
         self.counter = 0
         self.uchet_dict = {}
         self.dict = {}
+        self.vivod_dict = {}
         self.revizor_dict = {}
         self.ui.tableWidget_zapis.setColumnCount(3)
 
@@ -50,6 +51,7 @@ class Slave(QMainWindow):
         button.setStyleSheet(
             'QPushButton {background-color: rgba(255,0,0,30);width: 230px; height: 50 px; color: white;}')
         print(3)
+
     def super_connect(self):
         localehost = self.ui_window.lineEdit.text()
         self.client = Client("opc.tcp://localhost:{}/freeopcua/server/".format(localehost))
@@ -68,8 +70,10 @@ class Slave(QMainWindow):
         self.new_window.close()
 
     def potok1(self, a):
+        print(a)
         for i in range(3):
-            b = PySide6.QtWidgets.QTableWidgetItem(str(a[i + 1]))
+            b = PySide6.QtWidgets.QTableWidgetItem(str(a[i]))
+            print(b)
             self.ui.tableWidget_2.setItem(self.counter - 1, i, b)
         t1 = threading.Thread(target=self.revizor_vivod, args=(), daemon=True)
         t1.start()
@@ -79,36 +83,75 @@ class Slave(QMainWindow):
         self.print_value = Ui_Dialog3()
         self.print_value.setupUi(self.new_window2)
         self.new_window2.show()
+        self.print_value.comboBox_values.addItems(self.list)
+        err = self.print_value.is_all_ok
+        err.setStyleSheet(
+            'QLabel {background-color: rgba(0,255,0,30); color: white;}')
+        err.setText("All is ok")
         self.print_value.pushButton_valueprint.clicked.connect(self.vivod)
 
     def revizor_vivod(self):
         while True:
+            print(self.vivod_dict)
             print(self.revizor_dict)
-            for i in self.revizor_dict.items():
-                print(self.revizor_dict[i])
-                self.ui.tableWidget_2.item(i).setText(str(v[2]))
+            for i in self.revizor_dict:
+                name2 = i
+                print(i)
+                name = self.uzel
+                name1 = self.device
+                print(name, name1, name2)
+                var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2}')
+                print(var)
+                print(1)
+                c = var.get_data_value()
+                print(2)
+                value = str(c).split(':')[2].split(',')[0]
+                print(value)
+                self.ui.tableWidget_2.item(int(self.vivod_dict[i]),1).setText(str(value))
 
     def vivod(self):
-        name2 = self.print_value.lineEdit_value_name.text()
+        name2 = self.print_value.comboBox_values.currentText().split()[0]
         name = self.uzel
         name1 = self.device
-
+        print(self.dict)
+        print(name2)
         if name2 in self.dict:
-            var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2}')
-            c = var.get_data_value()
-            format = str(c).split(':')[3].split(')')[0]
-            value = str(c).split(':')[2].split(',')[0]
-            self.revizor_dict[name2] = [value, format]
-            self.counter += 1
-            self.ui.tableWidget_2.setRowCount(self.counter)
-            self.potok1(self.revizor_dict[name2])
-            self.new_window1.close()
+            if name2 not in self.vivod_dict:
+                self.vivod_dict[name2]=self.counter
+                err = self.print_value.is_all_ok
+                err.setStyleSheet(
+                    'QLabel {background-color: rgba(0,255,0,30); color: white;}')
+                err.setText("All is ok")
+                var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2}')
+                print("a")
+                c = var.get_data_value()
+                print("b")
+                format = str(c).split(':')[3].split(')')[0]
+                value = str(c).split(':')[2].split(',')[0]
+                self.revizor_dict[name2] = [value, format]
+                self.counter += 1
+                self.ui.tableWidget_2.setRowCount(self.counter)
+                self.potok1([name2, value, format])
+                self.new_window1.close()
+        else:
+            err = self.print_value.is_all_ok
+            err.setStyleSheet(
+                'QLabel {background-color: rgba(255,0,0,30); color: white;}')
+            err.setText("Error")
 
     def button1(self):
-        self.uzel = self.new_value.comboBox_UZEL.currentText()
-        list = [self.tr(i) for i in self.uchet_dict[self.uzel]]
-        self.new_value.comboBox_USTRO.addItems(list)
-        print(list)
+        if self.uzel == None:
+            self.uzel = self.new_value.comboBox_UZEL.currentText()
+            list = [self.tr(i) for i in self.uchet_dict[self.uzel]]
+            self.new_value.comboBox_USTRO.addItems(list)
+            print(list)
+        else:
+            self.new_value.comboBox_UZEL.clear()
+            list = [self.tr(self.uzel)]
+            self.new_value.comboBox_UZEL.addItems(list)
+            if self.device != None:
+                list = [self.tr(self.device)]
+                self.new_value.comboBox_USTRO.addItems(list)
 
     def format_returner(self, format):
         if format == "float32":
@@ -123,13 +166,15 @@ class Slave(QMainWindow):
         return a
 
     def button2(self):
-        self.new_value.comboBox_3.clear()
-        self.ustro = self.new_value.comboBox_USTRO.currentText()
-        format = self.new_value.comboBox_formats.currentText()
-        b = self.format_returner(format)
-        list = [self.tr(i[0]) for i in self.uchet_dict[self.uzel][self.ustro].items() if b == i[1]]
-        print(list)
-        self.new_value.comboBox_3.addItems(list)
+        if self.device == None:
+            self.new_value.comboBox_values.clear()
+            self.ustro = self.new_value.comboBox_USTRO.currentText()
+            self.list = [self.tr(i[0]+" "+ i[1]) for i in self.uchet_dict[self.uzel][self.ustro].items()]
+            print(list)
+            self.ustro = self.new_value.comboBox_values.currentText()
+            self.new_value.comboBox_values.addItems(self.list)
+            value = self.new_value.comboBox_values.currentText()
+            var = self.client.get_node(f'ns=1;s={self.uzel}.{self.ustro}.{value}')
 
     def open_new_value(self):
         self.new_window1 = QtWidgets.QDialog()
@@ -153,8 +198,10 @@ class Slave(QMainWindow):
                         name2 = a2[a2.find(":") + 1:a2.rfind(")")]
                         var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2}')
                         print(var)
-                        var.set_value(0)
-                        c = var.get_data_value()
+                        try:
+                            c = var.get_data_value()
+                        except:
+                            pass
                         format = str(c).split(':')[3].split(')')[0]
                         self.uchet_dict[name][name1][name2] = format
             list = [self.tr(i) for i in self.uchet_dict]
@@ -177,13 +224,13 @@ class Slave(QMainWindow):
         vaalue = self.new_value.lineEdit_value.text()
         name = self.uzel
         name1 = self.device
-        name2 = self.new_value.comboBox_3.currentText()
-        var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2}')
+        name2 = self.new_value.comboBox_values.currentText().split()
+        var = self.client.get_node(f'ns=1;s={name}.{name1}.{name2[0]}')
         print(var)
         var.set_value(vaalue)
-        format = self.new_value.comboBox_formats.currentText()
-        a = [name2, vaalue, format]
-        self.dict[name2] = [vaalue, format]
+        format = name2[1].split(".")[1]
+        a = [name2[0], vaalue, format]
+        self.dict[name2[0]] = [vaalue, format]
         self.ui.tableWidget_zapis.setRowCount(len(self.dict))
         print(self.dict)
         for i in range(3):
